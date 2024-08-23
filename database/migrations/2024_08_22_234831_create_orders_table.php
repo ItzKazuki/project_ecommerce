@@ -11,8 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('discounts', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_discount');
+            $table->decimal('min_belanja');
+            $table->timestamp('masa_berlaku');
+            $table->string('desc');
+            $table->integer('total_discount');
+            $table->timestamps();
+        });
+
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('seller_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('discount_id');
+            $table->foreign('seller_id')->references('id')->on('users');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('discount_id')->references('id')->on('discounts');
             $table->string('nama_pembeli');
             $table->string('nama_barang');
             $table->string('nama_seller');

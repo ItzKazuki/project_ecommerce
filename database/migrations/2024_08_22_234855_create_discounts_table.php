@@ -11,15 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('discounts', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_discount');
-            $table->decimal('min_belanja');
-            $table->timestamp('masa_berlaku');
-            $table->string('desc');
-            $table->integer('total_discount');
-            $table->timestamps();
-        });
+
     }
 
     /**
