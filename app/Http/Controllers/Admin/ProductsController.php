@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -31,7 +32,30 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        // get all request
+        $productData = $request->validate([
+            'nama' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+            'desc' => 'required'
+        ]);
+
+        try {
+            $product = Product::create([
+                'seller_id' => $request->user()->id,
+                'nama' => $request->nama,
+                'harga' => $request->harga,
+                'desc' => $request->desc,
+                'stok' => $request->stok,
+                'gambar' => $request->gambar,
+                'nama_penjual' => $request->user()->name
+            ]);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'success create new product');
     }
 
     /**

@@ -9,6 +9,16 @@ class Product extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'nama',
+        'harga',
+        'desc',
+        'stok',
+        'gambar',
+        'nama_penjual',
+        'seller_id'
+    ];
+
     public function seller()
     {
         return $this->hasMany(User::class, 'seller_id');
